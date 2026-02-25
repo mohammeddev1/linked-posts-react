@@ -8,9 +8,9 @@ import {
   Button,
 } from "@heroui/react";
 import { useNavigate } from "react-router-dom";
-import CommentsList from "./commentsList";
+import CommentsList from "./CommentsList";
 import LikesCard from "./LikesCard";
-import CreateComment from "../../components/createComment";
+import CreateComment from "../../components/CreateComment";
 import PostActions from "../../components/PostActions";
 
 export default function PostDetailsCard({
