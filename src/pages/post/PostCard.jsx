@@ -11,7 +11,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import PostComment from "./PostComment";
 import { useNavigate } from "react-router-dom";
-import CreateComment from "../../components/createComment";
+import CreateComment from "../../components/CreateComment";
 import PostActions from "../../components/PostActions";
 import { memo } from "react";
 
