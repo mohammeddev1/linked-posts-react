@@ -13,8 +13,10 @@ import PostComment from "./PostComment";
 import { useNavigate } from "react-router-dom";
 import CreateComment from "../../components/createComment";
 import PostActions from "../../components/PostActions";
+import { memo } from "react";
 
-export default function PostCard({ post }) {
+function PostCard({ post }) {
+  console.log("post card render");
   const nav = useNavigate();
 
   return (
@@ -96,3 +98,5 @@ export default function PostCard({ post }) {
     </>
   );
 }
+const PostCardMemo = memo(PostCard);
+export default PostCardMemo;

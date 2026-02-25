@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { authContext } from "../context/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
 import PostCard from "./post/PostCard";
@@ -8,7 +8,7 @@ import Error from "../components/Error";
 import CreatePost from "./post/CreatePost";
 import { Helmet } from "react-helmet";
 
-export default function Home() {
+function Home() {
   const { token } = useContext(authContext);
 
   function getAllPosts() {
@@ -70,3 +70,5 @@ export default function Home() {
     </>
   );
 }
+const HomeMemo = memo(Home);
+export default HomeMemo;

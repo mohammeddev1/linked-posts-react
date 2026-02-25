@@ -36,7 +36,11 @@ export default function TheNavbar() {
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
             <NavLink
-              className="font-medium hover:text-primary transition-colors"
+              className={({ isActive }) =>
+                `text-gray-950 transition-all font-medium p-2 px-4 rounded-lg ${
+                  isActive ? "bg-blue-600 text-white" : ""
+                }`
+              }
               to="/"
             >
               Home
@@ -45,7 +49,11 @@ export default function TheNavbar() {
 
           <NavbarItem>
             <NavLink
-              className="font-medium   transition-colors"
+              className={({ isActive }) =>
+                `text-gray-950 font-medium transition-all p-2 px-4 rounded-lg ${
+                  isActive ? "bg-blue-600 text-white" : ""
+                }`
+              }
               to={"/profile"}
             >
               Profile
@@ -124,13 +132,27 @@ export default function TheNavbar() {
         {token && (
           <>
             <NavbarMenuItem>
-              <NavLink className="font-medium w-full transition-colors" to="/">
+              <NavLink
+                className={({ isActive }) =>
+                  `text-gray-950 font-medium transition-all w-full block p-2 px-4 rounded-lg ${
+                    isActive ? "bg-blue-600 text-white" : ""
+                  }`
+                }
+                to="/"
+              >
                 Home
               </NavLink>
             </NavbarMenuItem>
 
             <NavbarMenuItem>
-              <NavLink className="font-medium transition-colors" to="/profile">
+              <NavLink
+                className={({ isActive }) =>
+                  `text-gray-950 w-full block font-medium transition-all p-2 px-4 rounded-lg ${
+                    isActive ? "bg-blue-600 text-white" : ""
+                  }`
+                }
+                to="/profile"
+              >
                 profile
               </NavLink>
             </NavbarMenuItem>
