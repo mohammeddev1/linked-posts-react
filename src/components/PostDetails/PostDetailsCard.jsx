@@ -8,10 +8,10 @@ import {
   Button,
 } from "@heroui/react";
 import { useNavigate } from "react-router-dom";
-import CommentsList from "./CommentsList";
-import LikesCard from "./LikesCard";
-import CreateComment from "../../components/CreateComment";
-import PostActions from "../../components/PostActions";
+import CommentsList from "../Comment/CommentsList";
+import LikesCard from "../Likes/LikesCard.jsx";
+import CreateComment from "../Comment/CreateComment.jsx";
+import PostActions from "../Post/PostActions.jsx";
 
 export default function PostDetailsCard({
   post,

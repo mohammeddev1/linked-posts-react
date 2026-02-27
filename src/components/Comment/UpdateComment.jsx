@@ -2,7 +2,7 @@ import { addToast, Button, Form, Input } from "@heroui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useContext, useState } from "react";
-import { authContext } from "../context/AuthContext";
+import { authContext } from "../../context/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
 import { FaComment } from "react-icons/fa";
 

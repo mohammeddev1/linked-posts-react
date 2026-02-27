@@ -5,10 +5,10 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  useDisclosure,
   Textarea,
   Image,
   addToast,
+  closeToast,
 } from "@heroui/react";
 import { IoCloseSharp } from "react-icons/io5";
 
@@ -17,38 +17,49 @@ import { MdAddPhotoAlternate } from "react-icons/md";
 import { Form } from "react-router-dom";
 import axios from "axios";
 import { authContext } from "../../context/AuthContext";
-import { useMutation } from "@tanstack/react-query";
-export default function CreatePost({ reFetch }) {
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+export default function UpdatePost({ post, isOpen, onOpen, onClose }) {
+  const [toastKey, setToastKey] = useState("");
   const { token } = useContext(authContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [postData, setPostData] = useState({
-    body: "",
-    image: "",
+    body: post.body,
+    image: post.image,
   });
+  const [preview, setPreview] = useState(post.image || "");
 
-  function handleCreatePost(formData) {
-    return axios.post("https://route-posts.routemisr.com/posts", formData, {
-      headers: {
-        token: token,
+  const queryClient = useQueryClient();
+
+  function handleUpdatePost(formData) {
+    return axios.put(
+      `https://route-posts.routemisr.com/posts/${post._id}`,
+      formData,
+      {
+        headers: {
+          token: token,
+        },
       },
-    });
+    );
   }
-
-  let { mutate, isPending } = useMutation({
-    mutationFn: handleCreatePost,
-    mutationKey: ["createNewPost"],
-
+  let { mutate } = useMutation({
+    mutationFn: handleUpdatePost,
+    onMutate: () => {
+      let toastId = addToast({
+        title: "Updating post...",
+        color: "default",
+      });
+      if (toastId) {
+        setToastKey(toastId);
+      }
+    },
     onSuccess: (data) => {
-      console.log(data);
       addToast({
         title: data.data.message || "Post created successfully",
         color: "success",
       });
-      reFetch();
-      setPostData({
-        body: "",
-        image: "",
-      });
+      closeToast(toastKey);
+      queryClient.invalidateQueries(["post", post._id]);
+      queryClient.invalidateQueries(["allPosts"]);
     },
 
     onError: (error) => {
@@ -58,45 +69,40 @@ export default function CreatePost({ reFetch }) {
         title: error.response?.data?.message || "Something went wrong",
         color: "danger",
       });
+      closeToast(toastKey);
 
       onOpen();
     },
   });
-
   return (
     <>
-      <div className="flex flex-wrap max-w-lg w-full mx-auto gap-3">
-        <Button
-          disabled={isPending}
-          className="w-full mx-auto block"
-          onPress={() => onOpen()}
-        >
-          Create New Post
-        </Button>
-      </div>
-      <Modal size="lg" isOpen={isOpen} onClose={onClose}>
+      <Modal
+        size="lg"
+        isOpen={isOpen}
+        onClose={() => {
+          setPostData({ body: post.body, image: post.image });
+          setPreview(post.image || "");
+          onClose();
+        }}
+      >
         <ModalContent>
           {(onClose) => (
             <Form
               onSubmit={(e) => {
                 e.preventDefault();
-
                 const formData = new FormData();
 
                 if (postData.body) {
                   formData.append("body", postData.body);
                 }
 
-                if (postData.image) {
+                if (postData.image instanceof File) {
                   formData.append("image", postData.image);
                 }
-                addToast({
-                  title: "Creating post...",
-                  color: "default",
-                });
-                onClose();
 
+                onClose();
                 mutate(formData);
+                console.log(postData);
               }}
             >
               <ModalHeader className="flex flex-col gap-1">
@@ -122,8 +128,9 @@ export default function CreatePost({ reFetch }) {
                   <input
                     onChange={(e) => {
                       const file = e.target.files[0];
-                      console.log(file);
+
                       setPostData({ ...postData, image: file });
+                      setPreview(URL.createObjectURL(file));
                       e.target.value = "";
                     }}
                     accept="image/*"
@@ -139,16 +146,17 @@ export default function CreatePost({ reFetch }) {
                     Upload Image
                   </label>
 
-                  {postData.image && (
+                  {preview && (
                     <div className="relative h-37.5 w-62.5">
                       <Image
                         alt="HeroUI hero Image with delay h-full"
                         className="object-cover w-full"
-                        src={URL.createObjectURL(postData.image)}
+                        src={preview}
                       />
                       <Button
                         onPress={() => {
                           setPostData({ ...postData, image: "" });
+                          setPreview("");
                         }}
                         className="absolute hover:bg-red-600 hover:text-white min-w-fit px-1 py-2 h-5 rounded z-50 top-2 cursor-pointer right-2"
                       >
@@ -168,7 +176,7 @@ export default function CreatePost({ reFetch }) {
                   Close
                 </Button>
                 <Button color="primary" type="submit">
-                  create post
+                  Update post
                 </Button>
               </ModalFooter>
             </Form>

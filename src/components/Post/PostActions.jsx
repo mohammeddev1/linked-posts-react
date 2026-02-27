@@ -12,8 +12,8 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useContext } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import UpdatePost from "../pages/post/UpdatePost";
-import { authContext } from "../context/AuthContext";
+import UpdatePost from "../Post/UpdatePost.jsx";
+import { authContext } from "../../context/AuthContext";
 
 export default function PostActions({ post }) {
   const { userId, token } = useContext(authContext);

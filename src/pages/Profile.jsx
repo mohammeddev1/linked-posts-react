@@ -12,7 +12,7 @@ import { Helmet } from "react-helmet";
 import { authContext } from "../context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { RotatingLines } from "react-loader-spinner";
-import PostCard from "./post/PostCard";
+import PostCard from "../components/Post/PostCard.jsx";
 
 export default function Profile() {
   // const user = {

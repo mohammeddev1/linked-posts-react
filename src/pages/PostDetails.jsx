@@ -1,13 +1,12 @@
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import PostCard from "./PostCard";
 import { useContext } from "react";
 import axios from "axios";
-import { authContext } from "../../context/AuthContext";
+import { authContext } from "../context/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
 import { useQuery } from "@tanstack/react-query";
 import { FaArrowLeft } from "react-icons/fa";
 import { Button } from "@heroui/react";
-import PostDetailsCard from "./PostDetailsCard";
+import PostDetailsCard from "../components/PostDetails/PostDetailsCard";
 import { Helmet } from "react-helmet";
 
 export default function PostDetails() {

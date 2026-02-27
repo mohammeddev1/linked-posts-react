@@ -2,11 +2,11 @@ import axios from "axios";
 import { memo, useContext } from "react";
 import { authContext } from "../context/AuthContext";
 import { RotatingLines } from "react-loader-spinner";
-import PostCard from "./post/PostCard";
-import { useQuery } from "@tanstack/react-query";
-import Error from "../components/Error";
-import CreatePost from "./post/CreatePost";
 import { Helmet } from "react-helmet";
+import { useQuery } from "@tanstack/react-query";
+import PostCard from "../components/Post/PostCard";
+import Error from "../components/Error";
+import CreatePost from "../components/Post/CreatePost.jsx";
 
 function Home() {
   const { token } = useContext(authContext);

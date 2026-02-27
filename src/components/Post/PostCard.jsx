@@ -7,13 +7,14 @@ import {
   Avatar,
   Button,
 } from "@heroui/react";
+
 import { AiOutlineLike } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
-import PostComment from "./PostComment";
-import { useNavigate } from "react-router-dom";
-import CreateComment from "../../components/CreateComment";
-import PostActions from "../../components/PostActions";
 import { memo } from "react";
+import { useNavigate } from "react-router-dom";
+import PostComment from "../Comment/PostComment";
+import CreateComment from "../Comment/CreateComment.jsx";
+import PostActions from "../Post/PostActions.jsx";
 
 function PostCard({ post }) {
   console.log("post card render");

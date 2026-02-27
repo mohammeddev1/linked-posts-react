@@ -2,7 +2,7 @@ import { addToast, Button } from "@heroui/react";
 import axios from "axios";
 import { useContext } from "react";
 import { AiOutlineLike } from "react-icons/ai";
-import { authContext } from "../context/AuthContext";
+import { authContext } from "../../context/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { RotatingLines } from "react-loader-spinner";
 

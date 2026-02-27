@@ -6,13 +6,14 @@ import {
   DropdownTrigger,
   User,
 } from "@heroui/react";
+
 import axios from "axios";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { authContext } from "../../context/AuthContext";
 import { useContext, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { RotatingLines } from "react-loader-spinner";
-import UpdateComment from "../../components/UpdateComment";
+import UpdateComment from "../Comment/UpdateComment.jsx";
 
 export default function CommentsList({ comment, postId }) {
   const { token, userId } = useContext(authContext);
