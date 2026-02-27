@@ -1,4 +1,8 @@
 {
-  "source": "/(.*)",
-  "destination": "/"
+  "rewrite": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }
