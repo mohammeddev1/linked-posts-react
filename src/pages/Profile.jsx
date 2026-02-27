@@ -15,19 +15,6 @@ import { RotatingLines } from "react-loader-spinner";
 import PostCard from "../components/Post/PostCard.jsx";
 
 export default function Profile() {
-  // const user = {
-  //   name: "Mohammed Hussein",
-  //   username: "mohammedhussein12",
-  //   email: "mohammedhm@gmail.com",
-  //   dateOfBirth: "2004-12-25",
-  //   gender: "Male",
-  //   photo:
-  //     "https://pub-3cba56bacf9f4965bbb0989e07dada12.r2.dev/linkedPosts/default-profile.png",
-  //   cover: "",
-  //   followersCount: 120,
-  //   followingCount: 75,
-  //   bookmarksCount: 18,
-  // };
   const { token, userId } = useContext(authContext);
   function getProfileData() {
     return axios.get("https://route-posts.routemisr.com/users/profile-data", {
@@ -36,6 +23,7 @@ export default function Profile() {
       },
     });
   }
+
   const { data: user, isLoading } = useQuery({
     queryFn: getProfileData,
     queryKey: ["profileDat", userId],
@@ -51,7 +39,8 @@ export default function Profile() {
       },
     );
   }
-  const { data: userPosts, isLoading: loadingPOsts } = useQuery({
+
+  const { data: userPosts } = useQuery({
     queryFn: getUserPosts,
     queryKey: ["userPosts", userId],
   });
